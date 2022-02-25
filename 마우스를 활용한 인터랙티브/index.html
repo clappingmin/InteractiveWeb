@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      position: relative;
+      background-color: black;
+      /* 컨텐츠 위에서는 커서가 안나옴 */
+      cursor: none;
+    }
+
+    h1 {
+      color: #fff
+    }
+
+    .cursor_Item {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background-color: red;
+      /* body에 붙이기 */
+      top: 0;
+      left: 0;
+    }
+  </style>
+  <script>
+    window.onload = function () { // 화면이 다 로드가 된 후에 실행
+      let h1 = document.getElementsByTagName('h1')[0];
+      let cursor_item = document.getElementsByClassName('cursor_Item')[0];
+      window.addEventListener("mousemove", mouseFunc, false)
+
+      function mouseFunc(e) {
+        h1.innerHTML = "x : " + e.clientX + " y : " + e.clientY
+        // console.log(e.clientX, e.clientY) // 마우스 x값이 나온다
+        cursor_item.style.transform = "translate(" + e.clientX + "px," + e.clientY + "px)" // 마우스를 따라 다닌다.
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <h1>test</h1>
+  <div class="cursor_Item"></div>
+</body>
+
+</html>
