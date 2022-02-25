@@ -29,16 +29,37 @@
     }
   </style>
   <script>
+    let h1;
+    let cursor_item;
+    // 마우스의 x,y 값
+    let x = 0;
+    let y = 0;
+    // 커서아이템의 x,y 값
+    let mx = 0;
+    let my = 0;
+    let speed = 0.1
+
     window.onload = function () { // 화면이 다 로드가 된 후에 실행
-      let h1 = document.getElementsByTagName('h1')[0];
-      let cursor_item = document.getElementsByClassName('cursor_Item')[0];
+      h1 = document.getElementsByTagName('h1')[0];
+      cursor_item = document.getElementsByClassName('cursor_Item')[0];
       window.addEventListener("mousemove", mouseFunc, false)
 
       function mouseFunc(e) {
-        h1.innerHTML = "x : " + e.clientX + " y : " + e.clientY
+        x = e.clientX;
+        y = e.clientY;
         // console.log(e.clientX, e.clientY) // 마우스 x값이 나온다
-        cursor_item.style.transform = "translate(" + e.clientX + "px," + e.clientY + "px)" // 마우스를 따라 다닌다.
       }
+      loop();
+    }
+    function loop() { // loop를 계속 실행 -> Frame이 계속 돌아간다.
+      mx += (x - mx) * 0.03;
+      my += (y - my) * 0.03;
+
+      h1.innerHTML = "x: " + x + " mx: " + mx;
+
+
+      cursor_item.style.transform = "translate(" + mx + "px," + my + "px)" // 마우스를 따라 다닌다.
+      window.requestAnimationFrame(loop);
     }
   </script>
 </head>
